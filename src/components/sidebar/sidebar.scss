@@ -1,0 +1,47 @@
+.card-color{
+    background-color: #5860A5;
+}
+
+.my-group{
+        --bs-list-group-color: #212529;
+        --bs-list-group-border-color: rgba(0, 0, 0, 0.125);
+        --bs-list-group-border-width: 1px;
+        --bs-list-group-border-radius: 0.375rem;
+        --bs-list-group-item-padding-x: 1rem;
+        --bs-list-group-item-padding-y: 0.5rem;
+        --bs-list-group-action-color: #fff;
+        --bs-list-group-action-hover-color: rgba(255, 255, 255, 0.250);
+        --bs-list-group-action-hover-bg: #5860a57b;
+        --bs-list-group-action-active-color: #212529;
+        --bs-list-group-action-active-bg: #5860a57b;
+        --bs-list-group-disabled-color: #6c757d;
+        --bs-list-group-disabled-bg: #fff;
+        --bs-list-group-active-color: #fff;
+        --bs-list-group-active-bg: #4a52a2;
+        --bs-list-group-active-border-color: #4a52a2;
+        display: flex;
+        flex-direction: column;
+        padding-left: 0;
+        margin-bottom: 0;
+        border-radius: var(--bs-list-group-border-radius);
+    
+}
+
+
+
+.my-item {
+    position: relative;
+    display: block;
+    padding: var(--bs-list-group-item-padding-y) var(--bs-list-group-item-padding-x);
+    color: var(--bs-list-group-color);
+    text-decoration: none;
+    background-color: #666da7;
+    border: var(--bs-list-group-border-width) solid var(--bs-list-group-border-color);
+
+    :active {
+        z-index: 2;
+        color: var(--bs-list-group-active-color);
+        background-color: black;
+        border-color: var(--bs-list-group-active-border-color);
+    }
+}

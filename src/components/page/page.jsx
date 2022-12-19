@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import './page.scss'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,16 +10,22 @@ import {constants} from "../../constants/constants.js";
 import InputFile from '../input-file/inputfile'
 import Sidebar from '../sidebar/sidebar'
 import Box from '../3d/box/box'
-import { Canvas, useFrame} from '@react-three/fiber'
+import { Canvas} from '@react-three/fiber'
 import MeshSTL from '../3d/box/stl/meshstl';
 import Model from '../3d/box/stl/mesh2';
 import Box2 from '../3d/box/box2';
+import { useCamera } from '@react-three/drei'
+import CameraHelper from '../3d/camerahelper/camerahelper';
+import Controls from '../3d/controls/controls';
+
 
 class Page extends React.Component {   
 
     constructor(props){
         super(props)
         this.vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)/100
+        this.cameraControls = 
+
         //this.changeColorMode=this.changeColorMode.bind(this)
         //this.loadingFile=this.loadingFile.bind(this)
         this.state={
@@ -75,9 +81,7 @@ class Page extends React.Component {
             {this.state.loadFile ? <InputFile onSave={this.addFile}></InputFile> : ''}
             <Row>
                 <Col xs={3}>
-                        
-                                    <Sidebar lista={this.state.files} componentHeight='96vh'/>
-                                
+                    <Sidebar lista={this.state.files} componentHeight='96vh'/>                                
                 </Col>
                 <Col xs={9}>
                     <Row>
@@ -86,21 +90,28 @@ class Page extends React.Component {
                                 <Card.Title>Nabla 3D</Card.Title>
                             </Card.Body> 
                         </Card>
-                        
                     </Row>
-                    <Row>
-                    
+                    <Row style={{marginTop: '50px'}}>
+                    {(Object.keys(this.state.files).length > 0)? (<Canvas style={ { height: '75vh' } } orthographic camera={{ position: [0, 0, 2], left: -2,
+       right: 2, top: 2, bottom: -2, zoom: 100 }}>
+      <ambientLight />
+      <pointLight position={[5, 5, 5]} intensity={3} />
+      <pointLight position={[-3, -3, 2]} />
+      <Controls /> {this.state.files.map((element, index) =>(
                         
-                        <Canvas>
-                            <ambientLight />
-                            <pointLight position={[10, 10, 10]} />
-                            <Box />
-                        </Canvas>
-                    
-                        <Button style={{backgroundColor: '#D9D9D9', height:'60px', width:'60px', borderRadius:'60px', position: 'absolute', bottom: "0px", right:"0px", color: 'black'}} onClick={this.loadingFile}>+</Button>
+                            
+                                <Box2 url={URL.createObjectURL(element)}/>
+                            
+                            
+                        
+                        ))} <CameraHelper /></Canvas>) : ''
+                    }
                     </Row>
+                        
+                    
                 </Col>
             </Row>
+            <Button style={{backgroundColor: '#D9D9D9', height:'60px', width:'60px', borderRadius:'60px', position: 'absolute', bottom: "0px", right:"0px", color: 'black'}} onClick={this.loadingFile}>+</Button>
             </Container>
             
         </div>

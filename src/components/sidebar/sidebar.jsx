@@ -9,13 +9,13 @@ const Sidebar = ({lista, componentHeight}) =>{
             <Card.Body>
                 <Card.Text >
                     
-                    <Tab.Container id="file-list" defaultActiveKey="#link0">
+                    <Tab.Container id="file-list">
                     
                         <ListGroup bsPrefix='my-group'>     
                             {
                                 (Object.keys(lista).length > 0) ? lista.map((elemento, index) =>(
                                     <ListGroup.Item key={index} href={"#link"+index} action >{elemento.name}</ListGroup.Item>
-                                )) : ''
+                                )) : ''                                
                                 
                             }            
                         </ListGroup>

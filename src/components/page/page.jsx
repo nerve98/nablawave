@@ -9,6 +9,11 @@ import {constants} from "../../constants/constants.js";
 
 import InputFile from '../input-file/inputfile'
 import Sidebar from '../sidebar/sidebar'
+import Box from '../3d/box/box'
+import { Canvas, useFrame} from '@react-three/fiber'
+import MeshSTL from '../3d/box/stl/meshstl';
+import Model from '../3d/box/stl/mesh2';
+import Box2 from '../3d/box/box2';
 
 class Page extends React.Component {   
 
@@ -84,6 +89,14 @@ class Page extends React.Component {
                         
                     </Row>
                     <Row>
+                    
+                        
+                        <Canvas>
+                            <ambientLight />
+                            <pointLight position={[10, 10, 10]} />
+                            <Box />
+                        </Canvas>
+                    
                         <Button style={{backgroundColor: '#D9D9D9', height:'60px', width:'60px', borderRadius:'60px', position: 'absolute', bottom: "0px", right:"0px", color: 'black'}} onClick={this.loadingFile}>+</Button>
                     </Row>
                 </Col>

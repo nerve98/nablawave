@@ -19,6 +19,9 @@ import CameraHelper from '../3d/camerahelper/camerahelper';
 import Controls from '../3d/controls/controls';
 import { WebGLRenderer } from 'three';
 import MeshList from '../3d/meshlist/meshlist';
+import { Suspense } from 'react'
+import { Bounds, ContactShadows, OrbitControls} from '@react-three/drei'
+import SelectToZoom from '../3d/selecttozoom/selecttozoom';
 
 
 class Page extends React.Component {   
@@ -100,18 +103,20 @@ class Page extends React.Component {
                         </Card>
                     </Row>
                     <Row style={{marginTop: '50px'}}>
-                    {(Object.keys(this.state.files).length > 0)? (<Canvas style={ { height: '75vh' } } orthographic camera={{ position: [0, 0, 2], left: -2,
-                        right: 2, top: 2, bottom: -2, zoom: 100 }}>
+                    {(Object.keys(this.state.files).length > 0)? (<Canvas style={ { height: '75vh' } } camera={{ position: [0, -10, 80], fov: 50 }} dpr={[1, 2]}>
                         <ambientLight />
-                        
-                        <Controls /> {this.state.files.map((element, index) =>(
-                        
-                            
-                                <Box2 url={URL.createObjectURL(element)} key={index}/>
-                            
-                            
-                        
-                        ))} <CameraHelper /></Canvas>) : ''
+                        <Suspense fallback={null}>
+                            <Bounds fit clip observe margin={1.2}>
+                                <SelectToZoom>
+                                    {this.state.files.map((element, index) =>(                                                            
+                                        <Box2 url={URL.createObjectURL(element)} key={index}/>                        
+                                    ))}                       
+                                </SelectToZoom>
+                            </Bounds>
+                            <ContactShadows rotation-x={Math.PI / 2} position={[0, -35, 0]} opacity={0.2} width={200} height={200} blur={1} far={50} />
+                      </Suspense> 
+                      <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} />
+                      </Canvas>) : ''
                     }
                     </Row>
                         

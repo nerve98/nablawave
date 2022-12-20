@@ -36,7 +36,8 @@ class Page extends React.Component {
         this.state={
             mode:constants.darkMode,
             loadFile:false,
-            files:[]
+            files:[],
+            selected: -1,
         }
     }
 
@@ -68,6 +69,13 @@ class Page extends React.Component {
         }
     }*/
 
+    selected=(selectedFile)=>{
+        this.setState({
+            ...this.state,
+            selected:this.state.selected===selectedFile? -1 : selectedFile
+        })
+    }
+
     loadingFile=()=>{
         this.setState({
             ...this.state,
@@ -92,7 +100,7 @@ class Page extends React.Component {
             {this.state.loadFile ? <InputFile onSave={this.addFile} ></InputFile> : ''}
             <Row>
                 <Col xs={3}>
-                    <Sidebar lista={this.state.files} componentHeight='96vh'/>                                
+                    <Sidebar lista={this.state.files} onSelection={this.selected} componentHeight='96vh' indexActive={this.state.selected}/>                                
                 </Col>
                 <Col xs={9}>
                     <Row>
@@ -109,7 +117,7 @@ class Page extends React.Component {
                             <Bounds fit clip observe margin={1.2}>
                                 <SelectToZoom>
                                     {this.state.files.map((element, index) =>(                                                            
-                                        <Box2 url={URL.createObjectURL(element)} key={index}/>                        
+                                        <Box2 url={URL.createObjectURL(element.file)} key={index} selected={index === this.state.selected? true : false} onSelection={this.selected} index={index}/>                        
                                     ))}                       
                                 </SelectToZoom>
                             </Bounds>

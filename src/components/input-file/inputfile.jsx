@@ -19,7 +19,7 @@ function InputFile({onSave}) {
         event.preventDefault();
         var files=[]
         for(var file of inputElement.current.files){
-            files=files.concat([file])
+            files=files.concat([{file:file, name:file.name}])
         }
         //console.log(files)
         onSave(files)

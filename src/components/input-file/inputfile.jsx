@@ -1,10 +1,12 @@
 import React, {useState, useRef} from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { Card } from 'react-bootstrap';
+import { Card, Modal } from 'react-bootstrap';
 
 function InputFile({onSave}) {
     const [validated, setValidated] = useState(false);
+    
+
     const inputElement = useRef();
 
     const handleSubmit = (event) => {
@@ -24,12 +26,17 @@ function InputFile({onSave}) {
         //setValidated(true);
       }
     
+    
 
     
     return (
-            
-        <Card style={{padding: '50px', backgroundColor: '#FAFAFA', position: 'fixed', left: '50%', top: '50%', transform: 'translate(-50%, -50%)'}}>
-            <Card.Body>
+        <Modal.Dialog style={{padding: '50px', backgroundColor: '#FAFAFA', position: 'fixed', left: '50%', top: '50%', transform: 'translate(-50%, -50%)', zIndex:'100'}}>  
+            <Modal.Header>
+                <Modal.Title>Load file stl</Modal.Title>
+            </Modal.Header>
+        
+            <Modal.Body>
+          
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Form.Group controlId="formFile" className="mb-3">
                         <Form.Label>Seleziona un file con estensione STL</Form.Label>
@@ -46,8 +53,10 @@ function InputFile({onSave}) {
                         Carica
                     </Button>
                 </Form>
-            </Card.Body>
-        </Card>
+                
+            </Modal.Body>
+            
+        </Modal.Dialog>
 
     )
     

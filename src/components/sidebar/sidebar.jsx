@@ -7,9 +7,9 @@ const Sidebar = ({lista, componentHeight}) =>{
     return (
         <Card style={{height:componentHeight, backgroundColor:'#5860A5'}} className="card-color">
             <Card.Body>
-                <Card.Text >
+                
                     
-                    <Tab.Container id="file-list">
+                    
                     
                         <ListGroup bsPrefix='my-group'>     
                             {
@@ -20,9 +20,9 @@ const Sidebar = ({lista, componentHeight}) =>{
                             }            
                         </ListGroup>
                         
-                    </Tab.Container>
                     
-                </Card.Text>
+                    
+                
             </Card.Body>
         </Card>
     )

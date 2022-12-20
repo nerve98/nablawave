@@ -22,7 +22,7 @@ import MeshList from '../3d/meshlist/meshlist';
 import { Suspense } from 'react'
 import { Bounds, ContactShadows, OrbitControls} from '@react-three/drei'
 import SelectToZoom from '../3d/selecttozoom/selecttozoom';
-
+import Box3 from '../3d/box/box3'
 
 class Page extends React.Component {   
 
@@ -91,7 +91,13 @@ class Page extends React.Component {
         })
     }
 
-    
+    renameFunc=(filesEdit)=>{
+        this.setState({
+            ...this.state,
+            files:filesEdit
+        })
+    }
+
     render(){
         console.log(this.state)
         return(
@@ -100,7 +106,7 @@ class Page extends React.Component {
             {this.state.loadFile ? <InputFile onSave={this.addFile} ></InputFile> : ''}
             <Row>
                 <Col xs={3}>
-                    <Sidebar lista={this.state.files} onSelection={this.selected} componentHeight='96vh' indexActive={this.state.selected}/>                                
+                    <Sidebar onRename={this.renameFunc} lista={this.state.files} onSelection={this.selected} componentHeight='96vh' indexActive={this.state.selected}/>                                
                 </Col>
                 <Col xs={9}>
                     <Row>
@@ -112,18 +118,22 @@ class Page extends React.Component {
                     </Row>
                     <Row style={{marginTop: '50px'}}>
                     {(Object.keys(this.state.files).length > 0)? (<Canvas style={ { height: '75vh' } } camera={{ position: [0, -10, 80], fov: 50 }} dpr={[1, 2]}>
+                        
                         <ambientLight />
                         <Suspense fallback={null}>
                             <Bounds fit clip observe margin={1.2}>
                                 <SelectToZoom>
+                                    
                                     {this.state.files.map((element, index) =>(                                                            
                                         <Box2 url={URL.createObjectURL(element.file)} key={index} selected={index === this.state.selected? true : false} onSelection={this.selected} index={index}/>                        
-                                    ))}                       
+                                    ))}    
+                                                    
                                 </SelectToZoom>
                             </Bounds>
                             <ContactShadows rotation-x={Math.PI / 2} position={[0, -35, 0]} opacity={0.2} width={200} height={200} blur={1} far={50} />
                       </Suspense> 
                       <OrbitControls makeDefault minPolarAngle={0} maxPolarAngle={Math.PI / 1.75} />
+                      
                       </Canvas>) : ''
                     }
                     </Row>

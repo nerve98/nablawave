@@ -3,13 +3,14 @@ import {STLLoader} from "three/examples/jsm/loaders/STLLoader";
 import { useLoader} from '@react-three/fiber'
 
 const Box2=({url, selected, onSelection, index})=> {
+    
     const [hovered, setHover] = useState(false)
     //const [active, setActive] = useState(selected)
 
     console.log(index+": "+selected)
 
     const geom = useLoader(STLLoader, url)
-    
+    console.log(geom)
 
     return (
             <mesh onClick={(event) => {onSelection(index)}} onPointerOver={(event) => setHover(true)}
